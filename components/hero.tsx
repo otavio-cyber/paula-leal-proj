@@ -22,48 +22,64 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="inicio" className="relative min-h-screen w-full overflow-hidden">
-      {/* Background Images with Fade Transition */}
+    <section
+      id="inicio"
+      className="relative min-h-screen w-full overflow-hidden"
+    >
+      {/* Background Images */}
       {heroImages.map((src, index) => (
         <div
           key={src}
-          className={`absolute inset-0 transition-opacity duration-2000 ease-in-out ${
+          className={`absolute inset-0 transition-opacity ease-in-out ${
             index === currentImage ? "opacity-100" : "opacity-0"
           }`}
           style={{ transitionDuration: "2000ms" }}
         >
           <Image
-            src={src || "/placeholder.svg"}
+            src={src}
             alt="Dra. Paula Leal"
             fill
-            className="object-cover object-center"
             priority={index === 0}
             sizes="100vw"
+            className="object-cover object-center"
           />
         </div>
       ))}
 
-      {/* Gradient Overlay */}
+      {/* Desktop Gradient */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 hidden lg:block"
         style={{
           background:
             "linear-gradient(to right, rgba(64, 38, 23, 0.85) 0%, rgba(64, 38, 23, 0.6) 40%, rgba(64, 38, 23, 0.3) 70%, transparent 100%)",
         }}
       />
 
+      {/* Mobile Gradient */}
+      <div
+        className="absolute inset-0 lg:hidden"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(64, 38, 23, 0.9) 0%, rgba(64, 38, 23, 0.65) 45%, rgba(64, 38, 23, 0.25) 75%, transparent 100%)",
+        }}
+      />
+
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 h-screen flex flex-col justify-center">
-        <div className="max-w-2xl pt-20 lg:pt-0">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 h-screen flex flex-col justify-start lg:justify-center">
+        <div className="max-w-2xl pt-24 sm:pt-28 lg:pt-0">
           <h1
             className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light text-off-white leading-tight mb-6 animate-fade-in-up"
             style={{ animationDelay: "0.2s" }}
           >
             Cuidado especializado em{" "}
-            <span className="font-medium text-terracota">endocrinologia</span>
+            <span className="font-medium text-terracota">
+              endocrinologia
+            </span>
           </h1>
+
+          {/* Subtítulo (desktop only) */}
           <p
-            className="text-lg sm:text-xl lg:text-2xl text-off-white/90 font-light leading-relaxed mb-8 lg:mb-10 animate-fade-in-up"
+            className="hidden lg:block text-lg sm:text-xl lg:text-2xl text-off-white/90 font-light leading-relaxed mb-8 lg:mb-10 animate-fade-in-up"
             style={{
               fontFamily: "var(--font-montserrat)",
               animationDelay: "0.4s",
@@ -71,8 +87,10 @@ export function Hero() {
           >
             Focado na sua saúde, qualidade de vida e longevidade.
           </p>
+
+          {/* CTA */}
           <div
-            className="animate-fade-in-up"
+            className="animate-fade-in-up mt-4 lg:mt-0"
             style={{ animationDelay: "0.6s" }}
           >
             <Link
